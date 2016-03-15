@@ -5,12 +5,13 @@
 The Promise object is used for deferred and asynchronous computations. A Promise represents an operation that hasn't completed yet, but is expected in the future.
 
 ### Syntax ###
+```java
     new Promise(new Resolver() {
         public void execute(OnFulfill<Object, Object> onFulfill, OnReject<Object, Object> onReject) throws Exception {
             ...
         }
     } )
-
+```
 Parameters
 
 1. Resolver is the same as:
@@ -41,7 +42,7 @@ A Promise is in one of these states:
 2. promise.Catch(OnReject onReject)
 
 Example1
-	
+```java	
 	//if the random index is equal to 0 , print "success result : 1",
 	  the random index is equal to 1, print "error result : 0"
      new Promise(new Resolver() {
@@ -59,9 +60,9 @@ Example1
                 return "error result : " + args;
             }
         })
-	
+```
 Example2
-
+```java
 	//print "last result : 1"
 	Promise.resolve("1").then(new OnFulfill() {
             public Object execute(Object args) {
@@ -81,7 +82,7 @@ Example2
                 return null;
             }
         });
-
+```
 
 About Promise :
 
