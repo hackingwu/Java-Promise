@@ -1,6 +1,5 @@
 ## Java Promise ##
-
-**Java Promise** is a promise implement by Java1.7 like javascript.
+There are many IO's operation without dependency.If we make them asynchronous, The IO's throughput would be imporved greatly. As we know, asynchronous programming will make the code hard to read. Promise is the specification to resolve it. However, Java doesn't provided it to us. This project, **Java promise** is promise implements by Java1.7 exatcly. 
 
 The Promise object is used for deferred and asynchronous computations. A Promise represents an operation that hasn't completed yet, but is expected in the future.
 
@@ -44,7 +43,7 @@ A Promise is in one of these states:
 Example1
 ```java	
 	//if the random index is equal to 0 , print "success result : 1",
-	  the random index is equal to 1, print "error result : 0"
+	//the random index is equal to 1, print "error result : 0"
      new Promise(new Resolver() {
             public void execute(OnFulfill<Object, Object> onFulfill, OnReject<Object, Object> onReject) throws Exception {
                 int index = new Random().nextInt(2);
