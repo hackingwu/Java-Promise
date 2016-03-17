@@ -1,5 +1,5 @@
 ## Java Promise ##
-There are many IO's operation without dependency.If we make them asynchronous,The IO's throughput would be imporved greatly.As we know,asynchronous programming will make the code hard to read.Promise is the specification to resolve it.However, Java doesn't provided it to us.This project,**Java promise** is promise implements by Java1.7 exatcly. 
+There are many IO's operation without dependency.If we make them asynchronous, The IO's throughput would be imporved greatly. As we know, asynchronous programming will make the code hard to read. Promise is the specification to resolve it. However, Java doesn't provided it to us. This project, **Java promise** is promise implements by Java1.7 exatcly. 
 
 The Promise object is used for deferred and asynchronous computations. A Promise represents an operation that hasn't completed yet, but is expected in the future.
 
