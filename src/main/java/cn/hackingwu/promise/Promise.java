@@ -32,6 +32,7 @@ public class Promise {
     }
 
     public static Promise resolve(final Object value) {
+        if (value instanceof Promise) return (Promise)value;
         return new Promise(new Resolver() {
             public void execute(OnFulfill<Object, Object> onFulfill, OnReject<Object, Object> onReject) throws Exception {
                 onFulfill.execute(value);
@@ -40,6 +41,7 @@ public class Promise {
     }
 
     public static Promise reject(final Object value) {
+        if (value instanceof Promise) return (Promise)value;
         return new Promise(new Resolver() {
             public void execute(OnFulfill<Object, Object> onFulfill, OnReject<Object, Object> onReject) throws Exception {
                 onReject.execute(value);
