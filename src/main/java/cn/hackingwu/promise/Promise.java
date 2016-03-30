@@ -29,6 +29,7 @@ public class Promise {
         this.promiseList = new PromiseList();
         this.resolve = resolve;
         this.promiseList.add(this);
+        Promises.subscribe(this);
     }
 
     public static Promise resolve(final Object value) {
