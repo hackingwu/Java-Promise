@@ -26,6 +26,7 @@ class Promises {
             public Object call() throws Exception {
                 PromiseList promiseList = promise.getPromiseList();
                 promiseList.setPending(true);
+                promiseList.setCurrentThread(Thread.currentThread());
                 Queue<Promise> promiseQueue = promiseList.getPromises();
                 Object value = promiseList.getValue();
                 Boolean isError = promiseList.isError();

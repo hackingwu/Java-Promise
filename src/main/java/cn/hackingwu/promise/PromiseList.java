@@ -17,6 +17,16 @@ class PromiseList {
     private Future future = null;
     private boolean pending = false;
 
+    private Thread currentThread = null;
+
+    public Thread getCurrentThread() {
+        return currentThread;
+    }
+
+    public void setCurrentThread(Thread currentThread) {
+        this.currentThread = currentThread;
+    }
+
     public PromiseList() {
         this.promises = new ArrayBlockingQueue<Promise>(100);
     }
