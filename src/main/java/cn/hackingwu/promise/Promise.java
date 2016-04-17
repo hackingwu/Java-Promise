@@ -100,27 +100,27 @@ public class Promise {
         return then(null, onReject);
     }
 
-    public Resolver getResolve() {
+    protected Resolver getResolve() {
         return resolve;
     }
 
-    public PromiseList getPromiseList() {
+    protected PromiseList getPromiseList() {
         return promiseList;
     }
 
-    public OnFulfill getOnFulfill() {
+    protected OnFulfill getOnFulfill() {
         return onFulfill;
     }
 
-    public OnReject getOnReject() {
+    protected OnReject getOnReject() {
         return onReject;
     }
 
-    public PromiseStatus getStatus() {
+    protected PromiseStatus getStatus() {
         return status;
     }
 
-    public void setStatus(PromiseStatus status) {
+    protected void setStatus(PromiseStatus status) {
         this.status = status;
     }
 }
