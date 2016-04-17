@@ -1,6 +1,8 @@
 package cn.hackingwu.promise;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -49,9 +51,8 @@ public class Promise {
             }
         });
     }
-
-    public static Promise all(Promise... promises) {
-        List result = new ArrayList(promises.length);
+    public static Promise all(Collection<Promise> promises) {
+        List result = new ArrayList(promises.size());
         for (Promise promise : promises) {
             try {
                 result.add(promise.getPromiseList().getFuture().get());
@@ -64,7 +65,16 @@ public class Promise {
         return resolve(result);
     }
 
+
+    public static Promise all(Promise... promises) {
+        return all(Arrays.asList(promises));
+    }
+
     public static Promise race(Promise... promises) {
+        return race(Arrays.asList(promises));
+    }
+
+    public static Promise race(Collection<Promise> promises) {
         Future future = null;
         Object value = null;
         for (Promise promise : promises) {
