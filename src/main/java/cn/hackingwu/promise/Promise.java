@@ -56,10 +56,8 @@ public class Promise {
         for (Promise promise : promises) {
             try {
                 result.add(promise.getPromiseList().getFuture().get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+            } catch (InterruptedException | ExecutionException e) {
+                result.add(e);
             }
         }
         return resolve(result);
@@ -76,22 +74,26 @@ public class Promise {
 
     public static Promise race(Collection<Promise> promises) {
         Future future = null;
-        Object value = null;
-        for (Promise promise : promises) {
-            future = promise.getPromiseList().getFuture();
-            try {
-                if (future.isDone()) {
-                    value = future.get();
-                    break;
-                } else if (future.isCancelled())
-                    break;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+        while (true){
+            for (Promise promise : promises){
+                future = promise.getPromiseList().getFuture();
+                if (future.isDone()){
+                    try {
+                        Object object = future.get();
+                        return resolve(object);
+                    } catch (InterruptedException | ExecutionException e) {
+                        return reject(e);
+                    }
+                } else if (future.isCancelled()) {
+                    return reject(null);
+                }
             }
         }
-        return resolve(value);
+    }
+
+    public Object get() throws ExecutionException, InterruptedException {
+        Future future = getPromiseList().getFuture();
+        return future.get();
     }
 
     public Promise then(OnFulfill onFulfill, OnReject onReject) {
