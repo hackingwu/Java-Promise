@@ -2,6 +2,7 @@ package cn.hackingwu.promise;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author hackingwu.
@@ -15,7 +16,7 @@ class PromiseList {
     private Boolean isError = false;
 
     private Future future = null;
-    private boolean pending = false;
+    private AtomicBoolean pending = new AtomicBoolean(false);
 
     private Thread currentThread = null;
 
@@ -56,11 +57,11 @@ class PromiseList {
     }
 
     public boolean isPending() {
-        return pending;
+        return pending.get();
     }
 
     public void setPending(boolean pending) {
-        this.pending = pending;
+        this.pending.set(pending);
     }
 
     public Future getFuture() {
