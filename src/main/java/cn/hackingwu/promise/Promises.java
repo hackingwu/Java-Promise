@@ -56,7 +56,7 @@ class Promises {
                     isError = currentPromise.getPromiseList().isError();
                 }
                 promiseList.setPending(false);
-                return value;
+                return promiseList.getValue();
             }
         });
     }
