@@ -15,9 +15,11 @@ class Promises {
     private static ExecutorService executorService = Executors.newCachedThreadPool();
 
     public static void subscribe(final Promise promise) {
-        if (!promise.getPromiseList().isPending()) {
+        PromiseList promiseList = promise.getPromiseList();
+        if (!promiseList.isPending()) {
             Future future = publish(promise);
-            promise.getPromiseList().setFuture(future);
+            promiseList.setFuture(future);
+            promiseList.setPending(true);
         }
     }
 
