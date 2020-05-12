@@ -1,5 +1,6 @@
 package cn.hackingwu.promise.jdk8;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -9,6 +10,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Supplier;
+
+import static cn.hackingwu.promise.jdk8.Promise.all;
 
 /**
  * @Author: Jason Wu
@@ -50,6 +54,36 @@ public class IOPromise {
             thread.setPriority(Thread.NORM_PRIORITY);
             return null;
         }
+    }
+
+    public static Supplier getSupplier(int i){
+        return () -> {
+            System.out.println("supplier"+i+": "+Thread.currentThread().getId());
+            Supplier supplier1_1 = () ->{
+                System.out.println("supplier"+i+"_1: "+Thread.currentThread().getId());
+                return null;
+            };
+            Supplier supplier1_2 = () ->{
+                System.out.println("supplier"+i+"_2: "+Thread.currentThread().getId());
+                return null;
+            };
+            try {
+                Promise.all(supplier1_1, supplier1_2).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            return null;
+        };
+    }
+
+    public static void main(String[] args){
+        Supplier supplier1 = getSupplier(1);
+        Supplier supplier2 = getSupplier(2);
+        Supplier supplier3 = getSupplier(3);
+
+        all(supplier1, supplier2, supplier3);
     }
 
 }

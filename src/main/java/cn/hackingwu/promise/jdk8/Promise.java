@@ -20,6 +20,23 @@ public class Promise {
         return futures;
     }
 
+    private static CompletableFuture[] runAsync(Runnable... runnables){
+        CompletableFuture[] futures = new CompletableFuture[runnables.length];
+        for (int i = 0; i < runnables.length; i++) {
+            futures[i] = CompletableFuture.runAsync(runnables[i], getExecutor());
+        }
+        return futures;
+    }
+
+    public static CompletableFuture all(Runnable... runnables){
+        return CompletableFuture.allOf(runAsync(runnables));
+    }
+
+    public static CompletableFuture any(Runnable... runnables){
+        return CompletableFuture.anyOf(runAsync(runnables));
+    }
+
+
     public static CompletableFuture all(Supplier... suppliers){
         return CompletableFuture.allOf(supplyAsync(suppliers));
     }
